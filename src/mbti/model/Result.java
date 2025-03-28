@@ -8,23 +8,21 @@ public class Result {
     private String mbtiName;
     private Timestamp startTime;
     private Timestamp endTime;
-    // 추가 필드
     private String userName;
-    private List<String> hashTags;
+    private List<String> hashTag;
     private List<String> contents;
 
     public Result() {
     }
 
-    // 전체 필드를 초기화하는 생성자
     public Result(String mbtiType, Timestamp startTime, Timestamp endTime,
-                String userName, String mbtiName, List<String> hashTags, List<String> contents) {
+                String userName, String mbtiName, List<String> hashTag, List<String> contents) {
         this.mbtiType = mbtiType;
         this.startTime = startTime;
         this.endTime = endTime;
         this.userName = userName;
         this.mbtiName = mbtiName;
-        this.hashTags = hashTags;
+        this.hashTag = hashTag;
         this.contents = contents;
     }
 
@@ -52,20 +50,12 @@ public class Result {
         this.endTime = endTime;
     }
 
-    public String getName() {
-        return userName;
+    public List<String> getHashTag() {
+        return hashTag;
     }
 
-    public void setName(String name) {
-        this.userName = name;
-    }
-
-    public List<String> getHashTags() {
-        return hashTags;
-    }
-
-    public void setHashTags(List<String> hashTags) {
-        this.hashTags = hashTags;
+    public void setHashTag(List<String> hashTag) {
+        this.hashTag = hashTag;
     }
 
     public List<String> getContents() {
@@ -101,10 +91,10 @@ public class Result {
         
         // 해시태그 출력
         sb.append("특징: ");
-        if (hashTags != null && !hashTags.isEmpty()) {
-            for (int i = 0; i < hashTags.size(); i++) {
-                sb.append(hashTags.get(i));
-                if (i < hashTags.size() - 1) {
+        if (hashTag != null && !hashTag.isEmpty()) {
+            for (int i = 0; i < hashTag.size(); i++) {
+                sb.append(hashTag.get(i));
+                if (i < hashTag.size() - 1) {
                     sb.append(", ");
                 }
             }

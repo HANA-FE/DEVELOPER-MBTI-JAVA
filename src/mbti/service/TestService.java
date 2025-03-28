@@ -2,6 +2,7 @@ package mbti.service;
 
 import mbti.model.Question;
 import mbti.model.Result;
+import mbti.util.QuestionUtil;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -9,84 +10,68 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * MBTI 테스트를 관리하는 서비스 클래스
+ * 사용자로부터 질문에 대한 응답을 받고 MBTI 유형을 계산
+ */
 public class TestService {
-    private final FileService fileService = new FileService();
-    private final QuestionLoader questionLoader = new QuestionLoader();
-    
-    // MBTI 대립 쌍 정의
+    // MBTI 대립 성격 유형 쌍
     private static final char[][] TYPE_PAIRS = {
-        {'E', 'I'},
-        {'S', 'N'},
-        {'T', 'F'},
-        {'J', 'P'}
+            {'E', 'I'},
+            {'S', 'N'},
+            {'T', 'F'},
+            {'J', 'P'}
     };
-    
+
+    private final QuestionUtil questionUtil;
+
+    /**
+     * QuestionUtil을 주입받는 생성자
+     * 
+     * @param questionUtil 질문을 로드하는 유틸리티 클래스
+     */
+    public TestService(QuestionUtil questionUtil) {
+        this.questionUtil = questionUtil;
+    }
+
+    /**
+     * MBTI 테스트를 시작하고 결과를 반환
+     * 사용자로부터 질문에 대한 응답을 받아 MBTI 유형을 계산
+     * 
+     * @return 테스트 결과 객체 (시작/종료 시간, MBTI 유형 포함)
+     */
     public Result startTest() {
-        Scanner sc = new Scanner(System.in);
         Result result = new Result();
         Timestamp startTime = Timestamp.valueOf(LocalDateTime.now());
+        result.setStartTime(startTime);
 
-        // 질문 로드
-        List<Question> questions = questionLoader.loadQuestions();
-        
-        // 각 타입별 개수를 추적하기 위한 맵
-        HashMap<Character, Integer> typeCounts = new HashMap<>();
-        // 8가지 기본 타입 초기화
-        for (char[] pair : TYPE_PAIRS) {
-            for (char type : pair) {
-                typeCounts.put(type, 0);
-            }
-        }
+        Scanner sc = new Scanner(System.in);
+        List<Question> questions = questionUtil.loadQuestions();
 
-        // 질문별 답변 받기
+        // 각 성격 유형별 응답 횟수를 추적
+        HashMap<Character, Integer> typeCounts = initializeTypeCounts();
+
+        // 모든 질문에 대해 사용자 응답 수집
         for (int i = 0; i < questions.size(); i++) {
-            Question question = questions.get(i);
-            System.out.println((i + 1) + ". " + question.getText());
-            System.out.println("선택지:");
-            for (int j = 0; j < question.getChoices().length; j++) {
-                System.out.println((j + 1) + ": " + question.getChoices()[j]);
-            }
-
-            System.out.print("답변을 선택하세요 (1-" + question.getChoices().length + "): ");
-            int choice = sc.nextInt();
-            
-            // 선택이 유효한 범위 내에 있는지 확인
-            if (choice < 1 || choice > question.getChoices().length) {
-                System.out.println("유효하지 않은 선택입니다. 1부터 " + question.getChoices().length + " 사이의 숫자를 입력하세요.");
-                i--; // 같은 질문을 다시 반복하기 위해 인덱스 감소
-                continue;
-            }
-            
-            // 선택지 인덱스는 0부터 시작하므로 -1 해줌
-            int selectedIndex = choice - 1;
-            
-            // 질문의 타입에 따라 처리
-            String typeStr = question.getType();
-            
-            if (typeStr.length() == 2) {
-                // 타입이 두 글자인 경우 (EI, SN, TF, JP)
-                // 첫 번째 선택지는 첫 번째 타입, 두 번째 선택지는 두 번째 타입에 해당
-                char selectedType = (selectedIndex == 0) ? typeStr.charAt(0) : typeStr.charAt(1);
-                typeCounts.put(selectedType, typeCounts.get(selectedType) + 1);
-            } else if (typeStr.length() == 1) {
-                // 타입이 한 글자인 경우 (E, I, S, N, T, F, J, P)
-                char type = typeStr.charAt(0);
-                typeCounts.put(type, typeCounts.get(type) + 1);
-            }
+            processQuestion(questions.get(i), sc, typeCounts, i);
         }
 
-        // MBTI 결과 계산
+        // MBTI 결과 계산 및 설정
         String mbtiResult = calculateMBTI(typeCounts);
         result.setMbtiType(mbtiResult);
+
         Timestamp endTime = Timestamp.valueOf(LocalDateTime.now());
-        result.setStartTime(startTime);
         result.setEndTime(endTime);
 
         return result;
     }
-    
+
     /**
-     * 타입별 개수를 기반으로 MBTI 결과 계산
+     * MBTI 성격 유형 계산 메서드
+     * 각 성격 유형 쌍에서 더 높은 빈도의 유형을 선택
+     * 
+     * @param typeCounts 각 성격 유형별 응답 횟수
+     * @return 계산된 4자리 MBTI 문자열
      */
     private String calculateMBTI(HashMap<Character, Integer> typeCounts) {
         StringBuilder mbti = new StringBuilder();
@@ -100,4 +85,75 @@ public class TestService {
         return mbti.toString();
     }
 
+    /**
+     * 성격 유형 카운트 맵 초기화
+     * 모든 MBTI 성격 유형을 0으로 초기화
+     * 
+     * @return 초기화된 성격 유형 카운트 맵
+     */
+    private HashMap<Character, Integer> initializeTypeCounts() {
+        HashMap<Character, Integer> typeCounts = new HashMap<>();
+        for (char[] pair : TYPE_PAIRS) {
+            for (char type : pair) {
+                typeCounts.put(type, 0);
+            }
+        }
+        return typeCounts;
+    }
+
+    /**
+     * 단일 질문에 대한 사용자 응답 처리
+     * 사용자 입력 유효성 검사 및 성격 유형 카운트 증가
+     * 
+     * @param question 현재 질문 객체
+     * @param scanner 사용자 입력을 받는 Scanner
+     * @param typeCounts 성격 유형별 카운트 맵
+     * @param questionIndex 현재 질문 인덱스
+     */
+    private void processQuestion(Question question, Scanner scanner, 
+                                 HashMap<Character, Integer> typeCounts, int questionIndex) {
+        System.out.println((questionIndex + 1) + ". " + question.getText());
+        System.out.println("선택지:");
+        
+        // 선택지 출력
+        for (int j = 0; j < question.getChoices().length; j++) {
+            System.out.println((j + 1) + ": " + question.getChoices()[j]);
+        }
+
+        System.out.print("답변을 선택하세요 (1-" + question.getChoices().length + "): ");
+        int choice = scanner.nextInt();
+
+        // 선택 유효성 검사
+        if (choice < 1 || choice > question.getChoices().length) {
+            System.out.println("유효하지 않은 선택입니다. 1부터 " + question.getChoices().length + " 사이의 숫자를 입력하세요.");
+            questionIndex--; // 같은 질문을 다시 반복
+            return;
+        }
+
+        int selectedIndex = choice - 1;
+        String typeStr = question.getType();
+
+        // 성격 유형 카운트 증가
+        updateTypeCount(typeStr, selectedIndex, typeCounts);
+    }
+
+    /**
+     * 선택된 질문의 성격 유형 카운트 업데이트
+     * 
+     * @param typeStr 성격 유형 문자열
+     * @param selectedIndex 선택된 답변 인덱스
+     * @param typeCounts 성격 유형별 카운트 맵
+     */
+    private void updateTypeCount(String typeStr, int selectedIndex, 
+                                 HashMap<Character, Integer> typeCounts) {
+        if (typeStr.length() == 2) {
+            // 타입이 두 글자인 경우 (EI, SN, TF, JP)
+            char selectedType = (selectedIndex == 0) ? typeStr.charAt(0) : typeStr.charAt(1);
+            typeCounts.put(selectedType, typeCounts.get(selectedType) + 1);
+        } else if (typeStr.length() == 1) {
+            // 타입이 한 글자인 경우
+            char type = typeStr.charAt(0);
+            typeCounts.put(type, typeCounts.get(type) + 1);
+        }
+    }
 }
