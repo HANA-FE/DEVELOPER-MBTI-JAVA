@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * MBTI 유형별 결과 데이터와 관련된 유틸리티 메서드를 제공하는 클래스
- * JSON 파일에서 MBTI 유형별 템플릿 데이터를 로드하고 정보를 제공합니다.
+ * JSON 파일에서 MBTI 유형별 결과 데이터를 로드하고 정보를 제공합니다.
  */
 public class MbtiResultUtil {
     // MBTI 템플릿 데이터를 저장할 캐시
@@ -56,9 +56,8 @@ public class MbtiResultUtil {
         try {
             if (Files.exists(MBTI_RESULT_DATA_PATH)) {
                 FileTime currentModifiedTime = Files.getLastModifiedTime(MBTI_RESULT_DATA_PATH);
-                // lastModifiedTime이 null이거나 현재 수정 시간과 다르면 파일이 변경된 것
-                return lastModifiedTime == null || 
-                       !currentModifiedTime.equals(lastModifiedTime);
+                // lastModifiedTime이 현재 수정 시간과 다르면 파일이 변경된 것
+                return !currentModifiedTime.equals(lastModifiedTime);
             }
         } catch (IOException e) {
             System.err.println("파일 수정 시간 확인 중 오류 발생: " + e.getMessage());
