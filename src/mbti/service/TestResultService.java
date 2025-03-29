@@ -2,7 +2,7 @@ package mbti.service;
 
 import mbti.model.Result;
 import mbti.model.User;
-import mbti.util.MbtiResultTemplateUtil;
+import mbti.util.MbtiResultUtil;
 import mbti.util.UserTestResultUtil;
 
 import java.util.ArrayList;
@@ -10,12 +10,12 @@ import java.util.List;
 
 /**
  * 테스트 결과를 관리하는 서비스 클래스
- * 비즈니스 로직을 처리하고 MbtiResultTemplateUtil과 UserTestResultUtil을 통해 파일 작업을 수행합니다.
+ * 비즈니스 로직을 처리하고 MbtiResultUtil과 UserTestResultUtil을 통해 파일 작업을 수행합니다.
  */
 public class TestResultService {
     // 사용자 테스트 결과를 모아둘 리스트
     private List<Result> testResultList = new ArrayList<>();
-    private final MbtiResultTemplateUtil mbtiResultTemplateUtil;
+    private final MbtiResultUtil mbtiResultUtil;
     private final UserTestResultUtil userTestResultUtil;
 
     /**
@@ -24,8 +24,8 @@ public class TestResultService {
      * @param mbtiResultTemplateUtil MBTI 결과 템플릿 유틸리티
      * @param userTestResultUtil 사용자 테스트 결과 유틸리티
      */
-    public TestResultService(MbtiResultTemplateUtil mbtiResultTemplateUtil, UserTestResultUtil userTestResultUtil) {
-        this.mbtiResultTemplateUtil = mbtiResultTemplateUtil;
+    public TestResultService(MbtiResultUtil mbtiResultTemplateUtil, UserTestResultUtil userTestResultUtil) {
+        this.mbtiResultUtil = mbtiResultTemplateUtil;
         this.userTestResultUtil = userTestResultUtil;
         loadResultsFromJson();
     }
@@ -51,16 +51,14 @@ public class TestResultService {
         // MBTI 유형에 따른 추가 정보 가져오기
         String mbtiType = result.getMbtiType();
         
-        // MbtiResultTemplateUtil을 사용하여 해당 MBTI 유형의 정보 가져오기
-        String mbtiName = mbtiResultTemplateUtil.getMbtiName(result.getMbtiType());
-        List<String> hashTag = mbtiResultTemplateUtil.getHashTag(result.getMbtiType());
-        List<String> contents = mbtiResultTemplateUtil.getContents(result.getMbtiType());
+        // MbtiResultUtil을 사용하여 해당 MBTI 유형의 정보 가져오기
+        Result resultJsonData = mbtiResultUtil.getMbtiResult(mbtiType);
         
         // Result 객체에 정보 설정
         result.setUserName(userName);
-        result.setMbtiName(mbtiName);
-        result.setHashTag(hashTag);
-        result.setContents(contents);
+        result.setMbtiName(resultJsonData.getMbtiName());
+        result.setHashTag(resultJsonData.getHashTag());
+        result.setContent(resultJsonData.getContent());
         
         // 결과를 리스트에 저장
         testResultList.add(result);

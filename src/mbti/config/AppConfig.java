@@ -5,7 +5,7 @@ import mbti.service.TestResultService;
 import mbti.service.TestService;
 import mbti.service.UserService;
 import mbti.util.QuestionUtil;
-import mbti.util.MbtiResultTemplateUtil;
+import mbti.util.MbtiResultUtil;
 import mbti.util.UserTestResultUtil;
 import mbti.util.UserUtil;
 
@@ -21,7 +21,7 @@ public class AppConfig {
     // 각 인스턴스를 저장할 private 필드
     private QuestionUtil questionUtilInstance;
     private UserUtil userUtilInstance;
-    private MbtiResultTemplateUtil mbtiResultTemplateUtilInstance;
+    private MbtiResultUtil mbtiResultUtilInstance;
     private UserTestResultUtil userTestResultUtilInstance;
     
     private TestService testServiceInstance;
@@ -80,11 +80,11 @@ public class AppConfig {
      * 
      * @return MbtiResultTemplateUtil의 단일 인스턴스
      */
-    public MbtiResultTemplateUtil mbtiResultTemplateUtil() {
-        if (mbtiResultTemplateUtilInstance == null) {
-            mbtiResultTemplateUtilInstance = new MbtiResultTemplateUtil();
+    public MbtiResultUtil mbtiResultTemplateUtil() {
+        if (mbtiResultUtilInstance == null) {
+            mbtiResultUtilInstance = new MbtiResultUtil();
         }
-        return mbtiResultTemplateUtilInstance;
+        return mbtiResultUtilInstance;
     }
 
     /**

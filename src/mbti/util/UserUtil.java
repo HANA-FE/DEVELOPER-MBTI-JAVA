@@ -39,8 +39,18 @@ public class UserUtil {
         }
 
         try (FileReader reader = new FileReader(JSON_FILE_PATH.toFile())) {
+            // 파일이 비어있는지 확인
+            if (reader.read() == -1) {
+                System.out.println("사용자 데이터 파일이 비어 있습니다. 새로운 리스트를 초기화합니다.");
+                return userList;
+            }
+            
+            // 파일 포인터를 다시 처음으로 이동
+            reader.close();
+            FileReader resetReader = new FileReader(JSON_FILE_PATH.toFile());
+            
             JSONParser parser = new JSONParser();
-            Object obj = parser.parse(reader);
+            Object obj = parser.parse(resetReader);
             JSONArray userArray = (JSONArray) obj;
 
             for (Object o : userArray) {
@@ -51,12 +61,14 @@ public class UserUtil {
             }
 
             System.out.println("JSON 파일에서 " + userList.size() + "명의 사용자 데이터를 로드했습니다.");
+            resetReader.close();
         } catch (IOException e) {
             System.err.println("사용자 데이터 파일 읽기 중 오류 발생: " + e.getMessage());
             e.printStackTrace();
         } catch (ParseException e) {
             System.err.println("사용자 데이터 파싱 중 오류 발생: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("비어 있거나 유효하지 않은 JSON 파일입니다. 새로운 리스트를 초기화합니다.");
+            return new ArrayList<>();
         }
 
         return userList;

@@ -95,7 +95,7 @@ public class UserTestResultUtil {
                     for (Object content : contentArray) {
                         contents.add((String) content);
                     }
-                    result.setContents(contents);
+                    result.setContent(contents);
                 }
 
                 resultList.add(result);
@@ -152,8 +152,8 @@ public class UserTestResultUtil {
 
             // 내용 저장
             JSONArray contentArray = new JSONArray();
-            if (result.getContents() != null) {
-                for (String content : result.getContents()) {
+            if (result.getContent() != null) {
+                for (String content : result.getContent()) {
                     contentArray.add(content);
                 }
             }

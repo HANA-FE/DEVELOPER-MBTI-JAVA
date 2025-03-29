@@ -10,7 +10,7 @@ public class Result {
     private Timestamp endTime;
     private String userName;
     private List<String> hashTag;
-    private List<String> contents;
+    private List<String> content;
 
     public Result() {
     }
@@ -23,7 +23,15 @@ public class Result {
         this.userName = userName;
         this.mbtiName = mbtiName;
         this.hashTag = hashTag;
-        this.contents = contents;
+        this.content = contents;
+    }
+
+    // JSON 데이터를 Result 객체로 담기 위한 생성자
+    public Result(String mbti, String name, List<String> hashTag, List<String> contents) {
+        this.mbtiType = mbti;
+        this.mbtiName = name;
+        this.hashTag = hashTag;
+        this.content = contents;
     }
 
     public String getMbtiType() {
@@ -58,12 +66,12 @@ public class Result {
         this.hashTag = hashTag;
     }
 
-    public List<String> getContents() {
-        return contents;
+    public List<String> getContent() {
+        return content;
     }
 
-    public void setContents(List<String> contents) {
-        this.contents = contents;
+    public void setContent(List<String> content) {
+        this.content = content;
     }
 
     public String getMbtiName() {
@@ -103,8 +111,8 @@ public class Result {
         
         // 콘텐츠 출력
         sb.append("3가지 특징\n");
-        if (contents != null && !contents.isEmpty()) {
-            for (String content : contents) {
+        if (content != null && !content.isEmpty()) {
+            for (String content : content) {
                 sb.append("- ").append(content).append("\n");
             }
         }
