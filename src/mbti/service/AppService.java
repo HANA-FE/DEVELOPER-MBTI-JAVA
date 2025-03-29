@@ -55,7 +55,7 @@ public class AppService {
 		String resultAnimal = (String) Objects.requireNonNull(resultObj).get("name");
 
 		System.out.println();
-		System.out.println(userName + "님은 " + resultAnimal + "에요!");
+		System.out.println(userName + "님은 " + "'" + resultAnimal + "' 타입 이에요!");
 		System.out.println();
 
 		JSONArray hashTags = (JSONArray) resultObj.get("hashTag");

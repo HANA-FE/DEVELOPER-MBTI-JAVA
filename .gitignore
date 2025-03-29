@@ -29,6 +29,9 @@ bin/
 .DS_Store
 .idea
 
+### App output file ###
+src/output/*
+
 ### Gradle ###
 .gradle
 **/build/

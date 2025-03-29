@@ -3,10 +3,7 @@ package mbti.service;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -16,12 +13,23 @@ public class FileService {
 			String content = Files.readString(Paths.get(filePath));
 			System.out.println(content);
 		} catch (IOException e) {
-			System.out.println("파일 읽기 중 오류 발생: " + e.getMessage());
+			System.out.println("아직 검사를 진행한 유저가 없어요!");
 		}
 	}
 
 	public static void writeTextFile(String filePath, String content) {
+		File file = new File(filePath);
+		File parentDir = file.getParentFile();
+
+		if (parentDir != null && !parentDir.exists()) {
+			parentDir.mkdirs();
+		}
+
 		try {
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
 			FileWriter writer = new FileWriter(filePath, true);
 			writer.write(content + "\n");
 			writer.close();
