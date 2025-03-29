@@ -93,7 +93,7 @@ MBTI 유형별 결과 템플릿이 저장된 파일입니다. 다음 형식을 �
 ]
 ```
 
-### exportData/testResults.json
+### exportData/userTestResults.json
 사용자가 완료한 테스트 결과가 저장되는 파일입니다 마찬가지로 프로그램 종료시 저장됩니다. 다음 형식을 따릅니다:
 ```json
 [

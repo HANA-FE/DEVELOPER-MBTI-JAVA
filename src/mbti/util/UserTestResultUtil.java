@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class UserTestResultUtil {
 
-    private static final Path USER_TEST_RESULTS_PATH = Paths.get("resources", "exportData", "testResults.json");
+    private static final Path USER_TEST_RESULTS_PATH = Paths.get("resources", "exportData", "userTestResults.json");
 
     // 날짜 형식
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
