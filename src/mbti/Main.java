@@ -26,6 +26,7 @@ public class Main {
 				continue;
 			}
 
+			screen.clearScreen();
 			switch (command) {
 				case 1:
 					screen.introduce();
@@ -34,7 +35,6 @@ public class Main {
 					screen.showAllUsers();
 					break;
 				case 3:
-					screen.clearScreen();
 					userService.setUser();
 					app.run();
 					scanner.nextLine();

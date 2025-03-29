@@ -21,9 +21,13 @@ public class screenService {
 	}
 
 	public void showMenu() {
-		System.out.println("================================================================");
-		System.out.println("1. 소개 | 2.사용자 관리 | 3.서비스 시작 | 4.결과 관리 | 5.종료");
-		System.out.println("================================================================");
+		System.out.println("========================================================================");
+		System.out.println("          |                 |                 |               |         ");
+		System.out.println(" 1. 소개  |  2.사용자 관리  |  3.서비스 시작  |  4.결과 관리  |  5.종료 ");
+		System.out.println("          |                 |                 |               |         ");
+		System.out.println("========================================================================");
+		System.out.println();
+		System.out.print("선택>> ");
 	}
 
 	public void showAllResults() {readTextFileAndPrint("src/output/log.txt");}
@@ -33,19 +37,19 @@ public class screenService {
 	}
 
 	public void introduce() {
-		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		System.out.println();
-		System.out.println("                        /\\_/\\");
-		System.out.println("                       ( o.o )");
-		System.out.println("                 ___________________");
-		System.out.println("                |                   |");
-		System.out.println("                |   Hello, world!   |");
-		System.out.println("                |___________________|");
+		System.out.println("                                /\\_/\\");
+		System.out.println("                               ( o.o )");
+		System.out.println("                         ___________________");
+		System.out.println("                        |                   |");
+		System.out.println("                        |   Hello, world!   |");
+		System.out.println("                        |___________________|");
 		System.out.println();
-		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-		System.out.println("           나의 개발 성향을 알아보자!");
-		System.out.println("식상한 MBTI는 가라! 나의 개발 성향을 동물로 알려드립니다.");
-		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		System.out.println();
+		System.out.println("                        💻  개발놈 테스트 💻");
+		System.out.println();
+		System.out.println("        식상한 MBTI는 가라! 나의 개발 성향을 동물로 알려드려요!");
 		System.out.println();
 	}
 

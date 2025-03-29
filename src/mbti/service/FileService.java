@@ -38,7 +38,7 @@ public class FileService {
 		}
 	}
 
-	public static JSONArray readJSONArrayFile(String filePath) {
+	public static JSONArray jsonFileToArray(String filePath) {
 		JSONArray jsonArray = null;
 		try {
 			JSONParser jsonParser = new JSONParser();

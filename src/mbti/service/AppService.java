@@ -7,8 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static mbti.service.FileService.readJSONArrayFile;
-import static mbti.service.FileService.writeTextFile;
+import static mbti.service.FileService.*;
 import static mbti.service.UserService.userName;
 import static mbti.service.screenService.scanner;
 import static mbti.util.DateUtil.getCurrentTime;
@@ -42,7 +41,7 @@ public class AppService {
 	}
 
 	private static void showResult(String result) {
-		JSONArray jsonArray = readJSONArrayFile("src/constant/result.json");
+		JSONArray jsonArray = jsonFileToArray("src/constant/result.json");
 		JSONObject resultObj = null;
 		for (Object obj : jsonArray) {
 			JSONObject curObj = (JSONObject) obj;
@@ -79,7 +78,7 @@ public class AppService {
 		screenService screenService = new screenService();
 		int questionIdx = 1;
 
-		JSONArray jsonArray = readJSONArrayFile("src/constant/questions.json");
+		JSONArray jsonArray = jsonFileToArray("src/constant/questions.json");
 		if (jsonArray == null) return;
 
 		while (questionIdx < jsonArray.size()) {
