@@ -35,11 +35,12 @@ public class TestResultService {
      */
     public void loadResultsFromJson() {
         // UserTestResultUtil을 사용하여 파일에서 데이터 로드
-        testResultList = userTestResultUtil.loadResultsFromJson();
+        testResultList = userTestResultUtil.getResults();
     }
 
     /**
-     * 테스트 결과를 보여주고 저장하는 메서드
+     * 테스트 결과를 보여주고 리스트에만 저장하는 메서드
+     * (파일 저장은 프로그램 종료 시에만 수행)
      * 
      * @param user 테스트를 수행한 사용자
      * @param result 테스트 결과 객체
@@ -60,11 +61,11 @@ public class TestResultService {
         result.setHashTag(resultJsonData.getHashTag());
         result.setContent(resultJsonData.getContent());
         
-        // 결과를 리스트에 저장
-        testResultList.add(result);
+        // 테스트가 완료되었음을 표시
+        result.setCompleted(true);
         
-        // 결과를 JSON 파일에 자동 저장
-        saveResultsToJson();
+        // 결과를 리스트에 저장 (파일 저장은 프로그램 종료 시에만 수행)
+        testResultList.add(result);
         
         return result;
     }
@@ -84,7 +85,6 @@ public class TestResultService {
             System.out.println("==========================");
 
         }
-        System.out.println("==========================");
     }
     
     /**

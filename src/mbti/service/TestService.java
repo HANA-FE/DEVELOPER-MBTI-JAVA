@@ -46,7 +46,7 @@ public class TestService {
         result.setStartTime(startTime);
 
         Scanner sc = new Scanner(System.in);
-        List<Question> questions = questionUtil.loadQuestions();
+        List<Question> questions = questionUtil.getQuestions();
 
         // 각 성격 유형별 응답 횟수를 추적
         HashMap<Character, Integer> typeCounts = initializeTypeCounts();
@@ -120,21 +120,36 @@ public class TestService {
             System.out.println((j + 1) + ": " + question.getChoices()[j]);
         }
 
-        System.out.print("답변을 선택하세요 (1-" + question.getChoices().length + "): ");
-        int choice = scanner.nextInt();
-
-        // 선택 유효성 검사
-        if (choice < 1 || choice > question.getChoices().length) {
-            System.out.println("유효하지 않은 선택입니다. 1부터 " + question.getChoices().length + " 사이의 숫자를 입력하세요.");
-            questionIndex--; // 같은 질문을 다시 반복
-            return;
+        int choice;
+        boolean validInput = false;
+        
+        // 유효한 숫자가 입력될 때까지 반복
+        while (!validInput) {
+            try {
+                System.out.print("답변을 선택하세요 (1-" + question.getChoices().length + "): ");
+                String input = scanner.next();
+                choice = Integer.parseInt(input);
+                
+                // 선택 범위 유효성 검사
+                if (choice < 1 || choice > question.getChoices().length) {
+                    System.out.println("유효하지 않은 선택입니다. 1부터 " + question.getChoices().length + " 사이의 숫자를 입력하세요.");
+                    continue;
+                }
+                
+                // 유효한 입력을 받았으므로 처리 진행
+                int selectedIndex = choice - 1;
+                String typeStr = question.getType();
+                
+                // 성격 유형 카운트 증가
+                updateTypeCount(typeStr, selectedIndex, typeCounts);
+                validInput = true;
+                
+            } catch (NumberFormatException e) {
+                // 숫자가 아닌 입력이 들어왔을 때 처리
+                System.out.println("숫자만 입력해주세요. 1부터 " + question.getChoices().length + " 사이의 숫자를 입력하세요.");
+                // scanner.nextLine(); // 버퍼 비우기 (불필요할 수 있음)
+            }
         }
-
-        int selectedIndex = choice - 1;
-        String typeStr = question.getType();
-
-        // 성격 유형 카운트 증가
-        updateTypeCount(typeStr, selectedIndex, typeCounts);
     }
 
     /**

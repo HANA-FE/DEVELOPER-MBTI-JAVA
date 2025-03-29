@@ -40,6 +40,8 @@ public class Main {
 
 
             if (input == 5) {
+                System.out.println("데이터를 저장하고 프로그램을 종료합니다...");
+                // 사용자 데이터와 완료된 테스트 결과만 저장
                 userService.saveUsersToJson();
                 testResultService.saveResultsToJson();
                 System.out.println("프로그램을 종료합니다.");

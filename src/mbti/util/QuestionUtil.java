@@ -20,11 +20,28 @@ public class QuestionUtil {
     
     private static final Path QUESTIONS_FILE_PATH = Paths.get("resources", "importData", "questions.json");
     
+    // 질문 데이터 캐시
+    private List<Question> questionCache = null;
+    
+    /**
+     * 질문 목록을 반환합니다.
+     * 첫 호출 시 데이터를 로드하고 캐싱하여 이후 호출에서는 캐시된 데이터를 반환합니다.
+     * 
+     * @return 질문 목록
+     */
+    public List<Question> getQuestions() {
+        // 캐시된 데이터가 없으면 로드
+        if (questionCache == null) {
+            questionCache = loadQuestionsFromJson();
+        }
+        return questionCache;
+    }
+    
     /**
      * JSON 파일에서 모든 질문을 로드
      * @return 질문 목록
      */
-    public List<Question> loadQuestions() {
+    private List<Question> loadQuestionsFromJson() {
         List<Question> questions = new ArrayList<>();
         JSONParser parser = new JSONParser();
         
@@ -36,6 +53,8 @@ public class QuestionUtil {
                 Question question = parseQuestion(questionObj);
                 questions.add(question);
             }
+            
+            System.out.println("JSON 파일에서 " + questions.size() + "개의 질문을 로드했습니다.");
         } catch (IOException e) {
             System.err.println("질문 파일을 읽는 중 오류 발생: " + e.getMessage());
             e.printStackTrace();
@@ -66,5 +85,12 @@ public class QuestionUtil {
         }
         
         return new Question(text, type, choices);
+    }
+    
+    /**
+     * 캐시를 무효화하여 다음 호출 시 데이터를 다시 로드하도록 합니다.
+     */
+    public void invalidateCache() {
+        questionCache = null;
     }
 }

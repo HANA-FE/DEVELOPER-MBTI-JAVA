@@ -11,6 +11,7 @@ public class Result {
     private String userName;
     private List<String> hashTag;
     private List<String> content;
+    private boolean isCompleted = false;
 
     public Result() {
     }
@@ -32,6 +33,15 @@ public class Result {
         this.mbtiName = name;
         this.hashTag = hashTag;
         this.content = contents;
+    }
+
+    // 테스트 완료 여부 게터/세터
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
     public String getMbtiType() {
