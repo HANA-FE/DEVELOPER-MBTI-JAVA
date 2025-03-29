@@ -127,9 +127,8 @@ public class UserUtil {
         try {
             if (Files.exists(JSON_FILE_PATH)) {
                 FileTime currentModifiedTime = Files.getLastModifiedTime(JSON_FILE_PATH);
-                // lastModifiedTime이 null이거나 현재 수정 시간과 다르면 파일이 변경된 것
-                return lastModifiedTime == null || 
-                       !currentModifiedTime.equals(lastModifiedTime);
+                // lastModifiedTime이 현재 수정 시간과 다르면 파일이 변경된 것
+                return !currentModifiedTime.equals(lastModifiedTime);
             }
         } catch (IOException e) {
             System.err.println("파일 수정 시간 확인 중 오류 발생: " + e.getMessage());
