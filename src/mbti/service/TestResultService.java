@@ -21,11 +21,11 @@ public class TestResultService {
     /**
      * TestResultService 생성자
      * 
-     * @param mbtiResultTemplateUtil MBTI 결과 템플릿 유틸리티
+     * @param mbtiResultUtil MBTI 결과 템플릿 유틸리티
      * @param userTestResultUtil 사용자 테스트 결과 유틸리티
      */
-    public TestResultService(MbtiResultUtil mbtiResultTemplateUtil, UserTestResultUtil userTestResultUtil) {
-        this.mbtiResultUtil = mbtiResultTemplateUtil;
+    public TestResultService(MbtiResultUtil mbtiResultUtil, UserTestResultUtil userTestResultUtil) {
+        this.mbtiResultUtil = mbtiResultUtil;
         this.userTestResultUtil = userTestResultUtil;
         loadResultsFromJson();
     }

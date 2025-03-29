@@ -75,12 +75,12 @@ public class AppConfig {
     }
 
     /**
-     * MbtiResultTemplateUtil의 싱글톤 인스턴스를 반환
+     * mbtiResultUtil 싱글톤 인스턴스를 반환
      * 인스턴스가 없으면 새로 생성
      * 
-     * @return MbtiResultTemplateUtil의 단일 인스턴스
+     * @return mbtiResultUtil 단일 인스턴스
      */
-    public MbtiResultUtil mbtiResultTemplateUtil() {
+    public MbtiResultUtil mbtiResultUtil() {
         if (mbtiResultUtilInstance == null) {
             mbtiResultUtilInstance = new MbtiResultUtil();
         }
@@ -147,7 +147,7 @@ public class AppConfig {
      */
     public TestResultService testResultService() {
         if (testResultServiceInstance == null) {
-            testResultServiceInstance = new TestResultService(mbtiResultTemplateUtil(), userTestResultUtil());
+            testResultServiceInstance = new TestResultService(mbtiResultUtil(), userTestResultUtil());
         }
         return testResultServiceInstance;
     }
