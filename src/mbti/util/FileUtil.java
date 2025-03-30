@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 public class FileUtil {
-
 	public static List<String> JSONLogToArray(String filePath, boolean onlyName) {
 		JSONParser parser = new JSONParser();
 		List<String> logArray = new ArrayList<>();
 
-		try (FileReader reader = new FileReader(filePath)) {
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 			JSONObject jsonObject = (JSONObject) parser.parse(reader);
 			JSONArray dataArray = (JSONArray) jsonObject.get("data");
 
@@ -45,7 +45,7 @@ public class FileUtil {
 		JSONArray jsonArray = null;
 		try {
 			JSONParser jsonParser = new JSONParser();
-			Reader reader = new FileReader(filePath);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
 			Object objmain = jsonParser.parse(reader);
 			jsonArray = (JSONArray) objmain;
 
@@ -64,7 +64,9 @@ public class FileUtil {
 		File file = new File(filePath);
 
 		if (file.exists()) {
-			try (FileReader reader = new FileReader(file)) {
+			try {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"));
+
 				jsonObject = (JSONObject) parser.parse(reader);
 				dataArray = (JSONArray) jsonObject.get("data");
 			} catch (IOException | ParseException e) {
