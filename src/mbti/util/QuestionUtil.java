@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class QuestionUtil {
         List<Question> questions = new ArrayList<>();
         JSONParser parser = new JSONParser();
         
-        try (FileReader reader = new FileReader(QUESTIONS_FILE_PATH.toFile())) {
+        try (FileReader reader = new FileReader(QUESTIONS_FILE_PATH.toFile(), StandardCharsets.UTF_8)) {
             JSONArray questionsArray = (JSONArray) parser.parse(reader);
 
             for (int i = 0; i < questionsArray.size(); i++) {

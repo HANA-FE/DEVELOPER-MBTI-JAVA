@@ -9,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -44,7 +45,7 @@ public class UserUtil {
                 Files.createDirectories(JSON_FILE_PATH.getParent());
                 
                 // 빈 JSON 배열로 파일 생성
-                try (FileWriter fileWriter = new FileWriter(JSON_FILE_PATH.toFile())) {
+                try (FileWriter fileWriter = new FileWriter(JSON_FILE_PATH.toFile(), StandardCharsets.UTF_8)) {
                     fileWriter.write("[]");
                     fileWriter.flush();
                 }
@@ -64,7 +65,7 @@ public class UserUtil {
             updateLastModifiedTime();
             
             // 파일 내용 확인을 위해 FileReader 사용
-            FileReader reader = new FileReader(JSON_FILE_PATH.toFile());
+            FileReader reader = new FileReader(JSON_FILE_PATH.toFile(), StandardCharsets.UTF_8);
             
             // 파일이 비어있는지 확인
             int firstChar = reader.read();
@@ -76,7 +77,7 @@ public class UserUtil {
             
             // 파일 포인터를 다시 처음으로 이동 (새 FileReader 생성)
             reader.close();
-            reader = new FileReader(JSON_FILE_PATH.toFile());
+            reader = new FileReader(JSON_FILE_PATH.toFile(), StandardCharsets.UTF_8);
             
             JSONParser parser = new JSONParser();
             try {
@@ -176,7 +177,7 @@ public class UserUtil {
             Files.createDirectories(JSON_FILE_PATH.getParent());
 
             // JSON 파일 생성 및 데이터 쓰기
-            try (FileWriter fileWriter = new FileWriter(JSON_FILE_PATH.toFile())) {
+            try (FileWriter fileWriter = new FileWriter(JSON_FILE_PATH.toFile(), StandardCharsets.UTF_8)) {
                 fileWriter.write(userArray.toJSONString());
                 fileWriter.flush();
             }

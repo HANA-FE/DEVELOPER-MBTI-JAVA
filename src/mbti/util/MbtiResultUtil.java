@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -83,7 +84,7 @@ public class MbtiResultUtil {
 
         // JSON 파싱 - try-with-resources 적용
         JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(MBTI_RESULT_DATA_PATH.toFile())) {
+        try (FileReader reader = new FileReader(MBTI_RESULT_DATA_PATH.toFile(), StandardCharsets.UTF_8)) {
             JSONArray resultsArray = (JSONArray) parser.parse(reader);
 
             // 각 MBTI 결과를 HashMap에 저장

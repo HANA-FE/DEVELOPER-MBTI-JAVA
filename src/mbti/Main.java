@@ -8,6 +8,9 @@ import mbti.service.TestResultService;
 import mbti.service.TestService;
 import mbti.service.UserService;
 
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 import java.util.Scanner;
 
 public class Main {
@@ -15,7 +18,12 @@ public class Main {
         // AppConfig를 통한 의존성 주입 (싱글톤 인스턴스 사용)
         AppConfig appConfig = AppConfig.getInstance();
 
-        Scanner sc = new Scanner(System.in);
+        // 콘솔 인코딩 정보 출력 (디버깅용)
+        System.out.println("현재 콘솔 인코딩: " + System.getProperty("file.encoding"));
+        System.out.println("현재 콘솔 Charset: " + java.nio.charset.Charset.defaultCharset().name());
+
+        // UTF-8 인코딩을 명시적으로 사용하는 Scanner 생성
+        Scanner sc = new Scanner(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         TestService testService = appConfig.testService();
         InfoService infoService = appConfig.infoService();
         UserService userService = appConfig.userService();
@@ -60,9 +68,10 @@ public class Main {
                     String username;
                     while (true) {
                         username = sc.nextLine().trim();
+                        System.out.println(username);
                         if (username.isEmpty()) {
                             System.out.println("이름을 입력해주세요.");
-                        } else if (username.length() > 2) {
+                        } else if (username.length() > 5) {
                             System.out.println("이름은 최대 2글자까지만 가능합니다. 다시 입력해주세요:");
                         } else {
                             break;

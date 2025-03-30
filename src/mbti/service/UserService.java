@@ -4,6 +4,7 @@ import mbti.model.User;
 import mbti.util.UserUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserService {
