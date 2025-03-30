@@ -9,6 +9,7 @@ import mbti.java.model.Answer;
 import mbti.java.model.PersonalityType;
 import mbti.java.model.Question;
 import mbti.java.model.UserResult;
+import mbti.java.util.FileService;
 
 public class ConsoleService {
     private final List<Question> questions;
@@ -34,12 +35,12 @@ public class ConsoleService {
     }
 
     public void start() {
-        displayWelcome();
+        introduce();
         String userName = getUserName();
         runTest(userName);
     }
 
-    private void displayWelcome() {
+    public void introduce() {
         System.out.println("=".repeat(50));
         System.out.println("          개발자 성향 테스트 프로그램          ");
         System.out.println("=".repeat(50));
@@ -76,7 +77,7 @@ public class ConsoleService {
         displayResult(result);
 
         // 결과 저장
-        Main.saveResult(result);
+        FileService.saveResult(result);
 
         // 다시 테스트할지 물어보기
         askForRestart();
