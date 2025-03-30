@@ -112,17 +112,21 @@ public class TestService {
      */
     private void processQuestion(Question question, Scanner scanner, 
                                  HashMap<Character, Integer> typeCounts, int questionIndex) {
-        System.out.println((questionIndex + 1) + ". " + question.getText());
-        System.out.println("선택지:");
-        
-        // 선택지 출력
-        for (int j = 0; j < question.getChoices().length; j++) {
-            System.out.println((j + 1) + ": " + question.getChoices()[j]);
-        }
+        ConsoleService console = new ConsoleService();
+        console.clearScreen();
+
+//        System.out.println((questionIndex + 1) + ". " + question.getText());
+//        System.out.println("선택지:");
+//
+//        // 선택지 출력
+//        for (int j = 0; j < question.getChoices().length; j++) {
+//            System.out.println((j + 1) + ": " + question.getChoices()[j]);
+//        }
+        console.showQuestion(question.getText(),question.getChoices()[0],question.getChoices()[1]);
 
         int choice;
         boolean validInput = false;
-        
+
         // 유효한 숫자가 입력될 때까지 반복
         while (!validInput) {
             try {

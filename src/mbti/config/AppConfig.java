@@ -1,9 +1,6 @@
 package mbti.config;
 
-import mbti.service.InfoService;
-import mbti.service.TestResultService;
-import mbti.service.TestService;
-import mbti.service.UserService;
+import mbti.service.*;
 import mbti.util.QuestionUtil;
 import mbti.util.MbtiResultUtil;
 import mbti.util.UserTestResultUtil;
@@ -28,6 +25,7 @@ public class AppConfig {
     private InfoService infoServiceInstance;
     private UserService userServiceInstance;
     private TestResultService testResultServiceInstance;
+    private ConsoleService consoleService;
 
     /**
      * 싱글톤 인스턴스를 반환하는 public static 메서드
@@ -150,5 +148,12 @@ public class AppConfig {
             testResultServiceInstance = new TestResultService(mbtiResultUtil(), userTestResultUtil());
         }
         return testResultServiceInstance;
+    }
+
+    public ConsoleService consoleService() {
+        if (consoleService == null) {
+            consoleService = new ConsoleService();
+        }
+        return consoleService;
     }
 }

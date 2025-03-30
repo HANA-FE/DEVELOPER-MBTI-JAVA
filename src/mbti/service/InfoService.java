@@ -35,4 +35,21 @@ public class InfoService {
         System.out.println("\n즐거운 테스트 되세요! 🌈");
         System.out.println("==================================================");
     }
+
+    public void showIntroduce() {
+        System.out.println();
+        System.out.println("                                /\\_/\\");
+        System.out.println("                               ( o.o )");
+        System.out.println("                         ___________________");
+        System.out.println("                        |                   |");
+        System.out.println("                        |   Hello, world!   |");
+        System.out.println("                        |___________________|");
+        System.out.println();
+        System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        System.out.println();
+        System.out.println("                        💻  개발놈 테스트 💻");
+        System.out.println();
+        System.out.println("        식상한 MBTI는 가라! 나의 개발 성향을 동물로 알려드려요!");
+        System.out.println();
+    }
 }
