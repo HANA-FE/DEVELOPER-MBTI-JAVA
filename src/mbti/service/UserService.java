@@ -49,8 +49,6 @@ public class UserService {
         User user = new User(username);
         userList.add(user); // 생성된 사용자를 리스트에 추가
         System.out.println(username + " 사용자가 등록되었습니다.");
-        // 사용자가 추가될 때마다 파일 저장
-        saveUsersToJson();
         return user;
     }
 
