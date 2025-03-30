@@ -1,15 +1,15 @@
 package mbti;
 
 import mbti.service.AppService;
+import mbti.service.ScreenService;
 import mbti.service.UserService;
-import mbti.service.screenService;
 
-import static mbti.service.screenService.scanner;
+import static mbti.service.ScreenService.scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		AppService app = new AppService();
-		screenService screen = new screenService();
+		ScreenService screen = new ScreenService();
 		UserService userService = new UserService();
 
 		boolean isRunning = true;
@@ -29,10 +29,10 @@ public class Main {
 			screen.clearScreen();
 			switch (command) {
 				case 1:
-					screen.introduce();
+					screen.showIntroduce();
 					break;
 				case 2:
-					screen.showAllUsers();
+					screen.showLogs(true);
 					break;
 				case 3:
 					userService.setUser();
@@ -40,7 +40,7 @@ public class Main {
 					scanner.nextLine();
 					break;
 				case 4:
-					screen.showAllResults();
+					screen.showLogs(false);
 					break;
 				case 5:
 					isRunning = false;
