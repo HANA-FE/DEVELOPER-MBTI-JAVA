@@ -25,10 +25,10 @@ public class Main {
         InfoService infoService = appConfig.infoService();
         UserService userService = appConfig.userService();
         TestResultService testResultService = appConfig.testResultService();
-        ConsoleService console=new ConsoleService();
+        ConsoleService consoleService = appConfig.consoleService();
 
         while (true) {
-            console.showMenu();
+            consoleService.showMenu();
 //            System.out.println("===== MBTI 개발자 테스트 =====");
 //            System.out.println("1. 서비스 소개");
 //            System.out.println("2. 사용자 관리");
@@ -40,7 +40,7 @@ public class Main {
             int input;
             try {
                 input = Integer.parseInt(sc.nextLine());
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("숫자를 입력하세요");
                 continue;
             }
@@ -55,7 +55,7 @@ public class Main {
                 break;
             }
 
-            console.clearScreen();
+            consoleService.clearScreen();
             switch (input) {
                 case 1:
                     infoService.showIntroduce();
@@ -68,7 +68,6 @@ public class Main {
                     String username;
                     while (true) {
                         username = sc.nextLine().trim();
-                        System.out.println(username);
                         if (username.isEmpty()) {
                             System.out.println("이름을 입력해주세요.");
                         } else if (username.length() > 5) {

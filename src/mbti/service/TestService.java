@@ -24,14 +24,16 @@ public class TestService {
     };
 
     private final QuestionUtil questionUtil;
+    private final ConsoleService consoleService;
 
     /**
      * QuestionUtil을 주입받는 생성자
      * 
      * @param questionUtil 질문을 로드하는 유틸리티 클래스
      */
-    public TestService(QuestionUtil questionUtil) {
+    public TestService(QuestionUtil questionUtil,ConsoleService consoleService) {
         this.questionUtil = questionUtil;
+        this.consoleService = consoleService;
     }
 
     /**
@@ -112,8 +114,8 @@ public class TestService {
      */
     private void processQuestion(Question question, Scanner scanner, 
                                  HashMap<Character, Integer> typeCounts, int questionIndex) {
-        ConsoleService console = new ConsoleService();
-        console.clearScreen();
+//        ConsoleService console = new ConsoleService();
+        consoleService.clearScreen();
 
 //        System.out.println((questionIndex + 1) + ". " + question.getText());
 //        System.out.println("선택지:");
@@ -122,7 +124,7 @@ public class TestService {
 //        for (int j = 0; j < question.getChoices().length; j++) {
 //            System.out.println((j + 1) + ": " + question.getChoices()[j]);
 //        }
-        console.showQuestion(question.getText(),question.getChoices()[0],question.getChoices()[1]);
+        consoleService.showQuestion(question.getText(),question.getChoices()[0],question.getChoices()[1]);
 
         int choice;
         boolean validInput = false;

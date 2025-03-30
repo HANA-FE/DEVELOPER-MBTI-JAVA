@@ -106,7 +106,7 @@ public class AppConfig {
      */
     public TestService testService() {
         if (testServiceInstance == null) {
-            testServiceInstance = new TestService(questionUtil());
+            testServiceInstance = new TestService(questionUtil(),consoleService());
         }
         return testServiceInstance;
     }
