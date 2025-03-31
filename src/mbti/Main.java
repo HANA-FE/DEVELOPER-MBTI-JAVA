@@ -3,10 +3,7 @@ package mbti;
 import mbti.config.AppConfig;
 import mbti.model.Result;
 import mbti.model.User;
-import mbti.service.InfoService;
-import mbti.service.TestResultService;
-import mbti.service.TestService;
-import mbti.service.UserService;
+import mbti.service.*;
 
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -28,20 +25,22 @@ public class Main {
         InfoService infoService = appConfig.infoService();
         UserService userService = appConfig.userService();
         TestResultService testResultService = appConfig.testResultService();
+        ConsoleService consoleService = appConfig.consoleService();
 
         while (true) {
-            System.out.println("===== MBTI 개발자 테스트 =====");
-            System.out.println("1. 서비스 소개");
-            System.out.println("2. 사용자 관리");
-            System.out.println("3. 테스트 실행");
-            System.out.println("4. 결과 관리");
-            System.out.println("5. 종료하기");
-            System.out.print("선택> ");
+            consoleService.showMenu();
+//            System.out.println("===== MBTI 개발자 테스트 =====");
+//            System.out.println("1. 서비스 소개");
+//            System.out.println("2. 사용자 관리");
+//            System.out.println("3. 테스트 실행");
+//            System.out.println("4. 결과 관리");
+//            System.out.println("5. 종료하기");
+//            System.out.print("선택> ");
 
             int input;
             try {
                 input = Integer.parseInt(sc.nextLine());
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("숫자를 입력하세요");
                 continue;
             }
@@ -56,9 +55,10 @@ public class Main {
                 break;
             }
 
+            consoleService.clearScreen();
             switch (input) {
                 case 1:
-                    infoService.showInfo();
+                    infoService.showIntroduce();
                     break;
                 case 2:
                     userService.showAllUser();
@@ -68,7 +68,6 @@ public class Main {
                     String username;
                     while (true) {
                         username = sc.nextLine().trim();
-                        System.out.println(username);
                         if (username.isEmpty()) {
                             System.out.println("이름을 입력해주세요.");
                         } else if (username.length() > 5) {
