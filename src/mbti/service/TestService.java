@@ -3,6 +3,7 @@ package mbti.service;
 import mbti.model.Question;
 import mbti.model.Result;
 import mbti.util.QuestionUtil;
+import org.jline.reader.LineReader;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -42,7 +43,7 @@ public class TestService {
      * 
      * @return 테스트 결과 객체 (시작/종료 시간, MBTI 유형 포함)
      */
-    public Result startTest() {
+    public Result startTest(LineReader reader) {
         Result result = new Result();
         Timestamp startTime = Timestamp.valueOf(LocalDateTime.now());
         result.setStartTime(startTime);
@@ -55,7 +56,7 @@ public class TestService {
 
         // 모든 질문에 대해 사용자 응답 수집
         for (int i = 0; i < questions.size(); i++) {
-            processQuestion(questions.get(i), sc, typeCounts, i);
+            processQuestion(questions.get(i), reader, typeCounts, i);
         }
 
         // MBTI 결과 계산 및 설정
@@ -108,11 +109,11 @@ public class TestService {
      * 사용자 입력 유효성 검사 및 성격 유형 카운트 증가
      * 
      * @param question 현재 질문 객체
-     * @param scanner 사용자 입력을 받는 Scanner
+     * @param reader 사용자 입력을 받는 LineReader
      * @param typeCounts 성격 유형별 카운트 맵
      * @param questionIndex 현재 질문 인덱스
      */
-    private void processQuestion(Question question, Scanner scanner, 
+    private void processQuestion(Question question, LineReader reader,
                                  HashMap<Character, Integer> typeCounts, int questionIndex) {
 //        ConsoleService console = new ConsoleService();
         consoleService.clearScreen();
@@ -132,8 +133,7 @@ public class TestService {
         // 유효한 숫자가 입력될 때까지 반복
         while (!validInput) {
             try {
-                System.out.print("답변을 선택하세요 (1-" + question.getChoices().length + "): ");
-                String input = scanner.next();
+                String input = reader.readLine("답변을 선택하세요 (1-" + question.getChoices().length + "): ");
                 choice = Integer.parseInt(input);
                 
                 // 선택 범위 유효성 검사
