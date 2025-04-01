@@ -71,13 +71,14 @@ java -Dfile.encoding=UTF-8 -cp "out:lib/*" mbti.Main
 
 
 ## 🎞 데모 GIF
-| 시작 화면 | 소개 | 사용자 관리 |
-|:--------:|:--------:|:--------:|
-| ![java_console](https://github.com/user-attachments/assets/56a80114-e03f-4c35-ac16-9719b37127c4) | ![java_intro](https://github.com/user-attachments/assets/06a93c90-015b-4267-a951-11e56ee9264d) | ![java_user](https://github.com/user-attachments/assets/35859de7-7ea1-4c84-bfed-6c5396162def) |
-
-| 서비스 시작 | 결과관리 | 종료 |
-|:--------:|:--------:|:--------:| 
-| ![java_test](https://github.com/user-attachments/assets/edfc5e6b-a190-4f99-aae3-e9b22f024087) | ![java_result](https://github.com/user-attachments/assets/8ad021cf-a22e-41df-918d-aa2e98e07774) | ![java_quit](https://github.com/user-attachments/assets/51254305-da1a-4ee0-a263-a824eb571fc6) |
+| 기능 | GIF |
+|:--------:|:--------:|
+| 시작 화면 | ![java_console](https://github.com/user-attachments/assets/56a80114-e03f-4c35-ac16-9719b37127c4) |
+| 소개 | ![java_intro](https://github.com/user-attachments/assets/06a93c90-015b-4267-a951-11e56ee9264d) |
+| 사용자 관리 | ![java_user](https://github.com/user-attachments/assets/35859de7-7ea1-4c84-bfed-6c5396162def) |
+| 서비스 시작 | ![java_test](https://github.com/user-attachments/assets/edfc5e6b-a190-4f99-aae3-e9b22f024087) |
+| 결과관리 | ![java_result](https://github.com/user-attachments/assets/8ad021cf-a22e-41df-918d-aa2e98e07774) |
+| 종료 | ![java_quit](https://github.com/user-attachments/assets/51254305-da1a-4ee0-a263-a824eb571fc6) |
 
 
 
