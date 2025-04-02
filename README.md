@@ -67,18 +67,19 @@ java -Dfile.encoding=UTF-8 -cp "out:lib/*" mbti.Main
 - 12개의 MBTI 질문을 통한 테스트
 - 테스트 결과 JSON 형식으로 저장
 - 이전 테스트 결과 조회 및 관리
+- 메뉴 키보드 방향키(좌,우,Enter)로 조작 가능
 - 지연 로딩(Lazy Loading)적용으로 JSON 데이터 효율적 로딩
 
 
 ## 🎞 데모 GIF
 | 기능 | GIF |
 |:--------:|:--------:|
-| 시작<br>화면 | ![java_console](https://github.com/user-attachments/assets/56a80114-e03f-4c35-ac16-9719b37127c4) |
-| 소개 | ![java_intro](https://github.com/user-attachments/assets/06a93c90-015b-4267-a951-11e56ee9264d) |
-| 사용자<br>관리 | ![java_user](https://github.com/user-attachments/assets/35859de7-7ea1-4c84-bfed-6c5396162def) |
-| 서비스 시작 | ![java_test](https://github.com/user-attachments/assets/edfc5e6b-a190-4f99-aae3-e9b22f024087) |
-| 결과<br>관리 |  ![java_result](https://github.com/user-attachments/assets/c94e8f02-bd1a-473e-81b9-49397a509f95)|
-| 종료 | ![java_quit](https://github.com/user-attachments/assets/51254305-da1a-4ee0-a263-a824eb571fc6) |
+| 시작<br>화면 | ![java_console](https://github.com/user-attachments/assets/21b624ba-dd24-4fb9-b806-a041841d38ee)  |
+| 소개 | ![java_intro](https://github.com/user-attachments/assets/3922ac0d-75d7-43fd-a6a0-82dfb093673d)|
+| 사용자<br>관리 |  ![java_user](https://github.com/user-attachments/assets/c3452ce6-44a3-44f0-b6d8-c024e123069a) |
+| 서비스 시작 |  ![java_test](https://github.com/user-attachments/assets/ce8f17a8-6f8a-48cc-bd3d-66a1d38fa837) |
+| 결과<br>관리 |![java_result](https://github.com/user-attachments/assets/327a6f3d-cdf6-4c88-98a4-0e6362fbb691) |
+| 종료 | ![java_quit](https://github.com/user-attachments/assets/7609b629-ee48-489f-b762-6068ebab9d13) |
 
 
 
