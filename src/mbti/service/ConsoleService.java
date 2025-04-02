@@ -84,7 +84,7 @@ public class ConsoleService {
 		System.out.println(divider.toAnsi().repeat(80));
 		System.out.println(menuOptions.toAnsi());
 		System.out.println(divider.toAnsi().repeat(80));
-		System.out.print(keyBoardInfo.toAnsi());
+		System.out.println(keyBoardInfo.toAnsi());
 	}
 
 	public void showQuestion(String question, String answer1, String answer2) {
