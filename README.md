@@ -51,7 +51,7 @@ java "-Dfile.encoding=UTF-8" -cp "out/production/DEVELOPER-MBTI-JAVA;lib/*" mbti
 #### ✅ Mac / Linux
 
 ```bash
-javac -d out -cp "lib/*" src/mbti/Main.java src/mbti/*/*.java
+javac -d out -cp "lib/*" src/mbti/Main.java src/mbti/*/*.java -Xlint:unchecked
 java -Dfile.encoding=UTF-8 -cp "out:lib/*" mbti.Main
 ```
 
