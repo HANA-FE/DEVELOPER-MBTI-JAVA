@@ -77,7 +77,7 @@ java -Dfile.encoding=UTF-8 -cp "out:lib/*" mbti.Main
 | 시작<br>화면 | ![java_console](https://github.com/user-attachments/assets/21b624ba-dd24-4fb9-b806-a041841d38ee)  |
 | 소개 | ![java_intro](https://github.com/user-attachments/assets/3922ac0d-75d7-43fd-a6a0-82dfb093673d)|
 | 사용자<br>관리 |  ![java_user](https://github.com/user-attachments/assets/c3452ce6-44a3-44f0-b6d8-c024e123069a) |
-| 서비스 시작 |  ![java_test](https://github.com/user-attachments/assets/ce8f17a8-6f8a-48cc-bd3d-66a1d38fa837) |
+| 서비스 시작 | ![java_test](https://github.com/user-attachments/assets/daa52b49-c2cc-446e-99ac-bc466ae6ee69)   |
 | 결과<br>관리 |![java_result](https://github.com/user-attachments/assets/327a6f3d-cdf6-4c88-98a4-0e6362fbb691) |
 | 종료 | ![java_quit](https://github.com/user-attachments/assets/7609b629-ee48-489f-b762-6068ebab9d13) |
 
