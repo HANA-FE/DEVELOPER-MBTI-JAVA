@@ -10,15 +10,15 @@ import mbti.model.User;
 import mbti.service.*;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 
 public class Main {
+	public static Terminal terminal;
+	public static LineReader reader;
+
 	public static void main(String[] args) throws IOException {
-		Terminal terminal = TerminalBuilder.builder().system(true).build();
+		terminal = TerminalBuilder.builder().system(true).build();
 		terminal.enterRawMode();
-		LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
+		reader = LineReaderBuilder.builder().terminal(terminal).build();
 
 		// AppConfig를 통한 의존성 주입 (싱글톤 인스턴스 사용)
 		AppConfig appConfig = AppConfig.getInstance();
@@ -66,7 +66,7 @@ public class Main {
 						}
 					}
 					User user = userService.createUser(username);
-					Result result = testService.startTest(reader);
+					Result result = testService.startTest();
 					result = testResultService.showThisResult(user, result);
 					System.out.println(result);
 					curMenu = 0;

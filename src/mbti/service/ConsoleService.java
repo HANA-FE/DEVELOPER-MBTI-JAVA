@@ -87,16 +87,16 @@ public class ConsoleService {
 		System.out.println(keyBoardInfo.toAnsi());
 	}
 
-	public void showQuestion(String question, String answer1, String answer2) {
+	public void showQuestion(String question, String answer1, String answer2, int cursor) {
 		println("━".repeat(70), AttributedStyle.CYAN);
 		System.out.println();
 		println("Q. " + question, AttributedStyle.CYAN);
 		System.out.println();
 		println("━".repeat(70), AttributedStyle.CYAN);
 		System.out.println();
-		println("1. " + answer1, AttributedStyle.CYAN);
+		println((cursor == 1 ? "> 1." : "  1.") + answer1, AttributedStyle.CYAN);
 		System.out.println();
-		println("2. " + answer2, AttributedStyle.CYAN);
+		println((cursor == 2 ? "> 2." : "  2.") + answer2, AttributedStyle.CYAN);
 		System.out.println();
 		println("━".repeat(70), AttributedStyle.CYAN);
 		System.out.println();
