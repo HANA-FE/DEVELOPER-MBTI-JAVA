@@ -87,8 +87,9 @@ public class ConsoleService {
 		System.out.println(keyBoardInfo.toAnsi());
 	}
 
-	public void showQuestion(String question, String answer1, String answer2, int cursor) {
+	public void showQuestion(String question, String answer1, String answer2, int cursor, int index) {
 		println("━".repeat(70), AttributedStyle.CYAN);
+		println(" ".repeat(33)+(index+1)+"/12"+" ".repeat(33));
 		System.out.println();
 		println("Q. " + question, AttributedStyle.CYAN);
 		System.out.println();

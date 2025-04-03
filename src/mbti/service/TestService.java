@@ -59,7 +59,7 @@ public class TestService {
 
 		// 모든 질문에 대해 사용자 응답 수집
 		for (int i = 0; i < questions.size(); i++) {
-			processQuestion(questions.get(i), typeCounts);
+			processQuestion(questions.get(i), typeCounts,i);
 		}
 
         // MBTI 결과 계산 및 설정
@@ -114,13 +114,13 @@ public class TestService {
 	 * @param question   현재 질문 객체
 	 * @param typeCounts 성격 유형별 카운트 맵
 	 */
-	private void processQuestion(Question question, HashMap<Character, Integer> typeCounts) {
+	private void processQuestion(Question question, HashMap<Character, Integer> typeCounts, int index) {
 
 		int cursor = 1;
 		while (true) {
 			try {
 				consoleService.clearScreen();
-				consoleService.showQuestion(question.getText(), question.getChoices()[0], question.getChoices()[1], cursor);
+				consoleService.showQuestion(question.getText(), question.getChoices()[0], question.getChoices()[1], cursor, index);
 				int key = terminal.reader().read();
 
 				if (key == 66 && cursor == 1) {
