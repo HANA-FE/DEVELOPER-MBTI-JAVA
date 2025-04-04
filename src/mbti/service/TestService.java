@@ -4,11 +4,13 @@ import mbti.model.Question;
 import mbti.model.Result;
 import mbti.util.QuestionUtil;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
+
+import static mbti.Main.terminal;
 
 /**
  * MBTI 테스트를 관리하는 서비스 클래스
@@ -36,27 +38,29 @@ public class TestService {
         this.consoleService = consoleService;
     }
 
-    /**
-     * MBTI 테스트를 시작하고 결과를 반환
-     * 사용자로부터 질문에 대한 응답을 받아 MBTI 유형을 계산
-     * 
-     * @return 테스트 결과 객체 (시작/종료 시간, MBTI 유형 포함)
-     */
-    public Result startTest() {
-        Result result = new Result();
-        Timestamp startTime = Timestamp.valueOf(LocalDateTime.now());
-        result.setStartTime(startTime);
+	/**
+	 * MBTI 테스트를 시작하고 결과를 반환
+	 * 사용자로부터 질문에 대한 응답을 받아 MBTI 유형을 계산
+	 *
+	 * @return 테스트 결과 객체 (시작/종료 시간, MBTI 유형 포함)
+	 */
+	public Result startTest() throws IOException {
+		Result result = new Result();
+		Timestamp startTime = Timestamp.valueOf(LocalDateTime.now());
+		result.setStartTime(startTime);
 
-        Scanner sc = new Scanner(System.in);
-        List<Question> questions = questionUtil.getQuestions();
+		List<Question> questions = questionUtil.getQuestions();
 
         // 각 성격 유형별 응답 횟수를 추적
         HashMap<Character, Integer> typeCounts = initializeTypeCounts();
 
-        // 모든 질문에 대해 사용자 응답 수집
-        for (int i = 0; i < questions.size(); i++) {
-            processQuestion(questions.get(i), sc, typeCounts, i);
-        }
+		consoleService.println("아무키나 누르면 테스트가 시작됩니다!");
+		terminal.reader().read();
+
+		// 모든 질문에 대해 사용자 응답 수집
+		for (int i = 0; i < questions.size(); i++) {
+			processQuestion(questions.get(i), typeCounts,i);
+		}
 
         // MBTI 결과 계산 및 설정
         String mbtiResult = calculateMBTI(typeCounts);
@@ -103,60 +107,41 @@ public class TestService {
         return typeCounts;
     }
 
-    /**
-     * 단일 질문에 대한 사용자 응답 처리
-     * 사용자 입력 유효성 검사 및 성격 유형 카운트 증가
-     * 
-     * @param question 현재 질문 객체
-     * @param scanner 사용자 입력을 받는 Scanner
-     * @param typeCounts 성격 유형별 카운트 맵
-     * @param questionIndex 현재 질문 인덱스
-     */
-    private void processQuestion(Question question, Scanner scanner, 
-                                 HashMap<Character, Integer> typeCounts, int questionIndex) {
-//        ConsoleService console = new ConsoleService();
-        consoleService.clearScreen();
+	/**
+	 * 단일 질문에 대한 사용자 응답 처리
+	 * 사용자 입력 유효성 검사 및 성격 유형 카운트 증가
+	 *
+	 * @param question   현재 질문 객체
+	 * @param typeCounts 성격 유형별 카운트 맵
+	 */
+	private void processQuestion(Question question, HashMap<Character, Integer> typeCounts, int index) {
 
-//        System.out.println((questionIndex + 1) + ". " + question.getText());
-//        System.out.println("선택지:");
-//
-//        // 선택지 출력
-//        for (int j = 0; j < question.getChoices().length; j++) {
-//            System.out.println((j + 1) + ": " + question.getChoices()[j]);
-//        }
-        consoleService.showQuestion(question.getText(),question.getChoices()[0],question.getChoices()[1]);
+		int cursor = 1;
+		while (true) {
+			try {
+				consoleService.clearScreen();
+				consoleService.showQuestion(question.getText(), question.getChoices()[0], question.getChoices()[1], cursor, index);
+				int key = terminal.reader().read();
 
-        int choice;
-        boolean validInput = false;
+				if (key == 66 && cursor == 1) {
+					cursor = 2;
+				} else if (key == 65 && cursor == 2) {
+					cursor = 1;
+				} else if (key == 13) {
+					break;
+				}
+			} catch (Exception e) {
+				System.out.println("올바른 입력이 아닙니다.");
+				System.exit(0);
+			}
+		}
 
-        // 유효한 숫자가 입력될 때까지 반복
-        while (!validInput) {
-            try {
-                System.out.print("답변을 선택하세요 (1-" + question.getChoices().length + "): ");
-                String input = scanner.next();
-                choice = Integer.parseInt(input);
-                
-                // 선택 범위 유효성 검사
-                if (choice < 1 || choice > question.getChoices().length) {
-                    System.out.println("유효하지 않은 선택입니다. 1부터 " + question.getChoices().length + " 사이의 숫자를 입력하세요.");
-                    continue;
-                }
-                
-                // 유효한 입력을 받았으므로 처리 진행
-                int selectedIndex = choice - 1;
-                String typeStr = question.getType();
-                
-                // 성격 유형 카운트 증가
-                updateTypeCount(typeStr, selectedIndex, typeCounts);
-                validInput = true;
-                
-            } catch (NumberFormatException e) {
-                // 숫자가 아닌 입력이 들어왔을 때 처리
-                System.out.println("숫자만 입력해주세요. 1부터 " + question.getChoices().length + " 사이의 숫자를 입력하세요.");
-                // scanner.nextLine(); // 버퍼 비우기 (불필요할 수 있음)
-            }
-        }
-    }
+		int selectedIndex = cursor - 1;
+		String typeStr = question.getType();
+
+		// 성격 유형 카운트 증가
+		updateTypeCount(typeStr, selectedIndex, typeCounts);
+	}
 
     /**
      * 선택된 질문의 성격 유형 카운트 업데이트
