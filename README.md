@@ -67,7 +67,7 @@ java -Dfile.encoding=UTF-8 -cp "out:lib/*" mbti.Main
 - 12개의 MBTI 질문을 통한 테스트
 - 테스트 결과 JSON 형식으로 저장
 - 이전 테스트 결과 조회 및 관리
-- 메뉴 키보드 방향키(좌,우,Enter)로 조작 가능
+- 메뉴 및 질문 선택 시, 키보드(방향키,Enter)로 조작 가능
 - 지연 로딩(Lazy Loading)적용으로 JSON 데이터 효율적 로딩
 
 
